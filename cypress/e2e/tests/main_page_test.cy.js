@@ -7,6 +7,10 @@ describe('Main page testing', function(){
     it('', function(){
         mainPage.visitMainPage()
             .checkGlobalFeed()
+            .pagination(2)
+            .checkGlobalFeed()
+            .pagination(3)
+            .checkGlobalFeed()
     })
 
 })

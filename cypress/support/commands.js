@@ -26,7 +26,7 @@
 
 Cypress.Commands.add('getGlobalFeed', function(){
 
-    cy.intercept('GET', '**/api.realworld.io/api/articles?limit=10&offset=0').as('globalFeed')
+    cy.intercept('GET', '**/api.realworld.io/api/articles?limit=10&**').as('globalFeed')
 
     cy.wait('@globalFeed')
 
