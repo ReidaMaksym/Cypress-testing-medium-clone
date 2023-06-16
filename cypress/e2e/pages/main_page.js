@@ -38,6 +38,12 @@ class mainPage{
                     .invoke('text')
                         .should('contains', body.articles[index].description)
                 
+                cy.get($el.find('.preview-link > .tag-list > li')).each(function($el2, index2, $list2){
+
+                    expect($el2.text().trim())
+                        .contains(body.articles[index].tagList[index2])
+                
+                })
             })
         })
 
