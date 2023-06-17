@@ -92,10 +92,6 @@ class mainPage{
                     cy.get($el).click()
                 }
             })
-    
-            cy.getPostData().then(function(postData){
-                console.log(postData)
-            })
         })
 
         return this
