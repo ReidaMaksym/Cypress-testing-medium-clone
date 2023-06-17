@@ -41,3 +41,23 @@ Cypress.Commands.add('getGlobalFeed', function(){
     })
 
 })
+
+Cypress.Commands.add('getPopularTags', function(){
+
+    cy.intercept('GET', 'https://api.realworld.io/api/tags').as('popularTags')
+
+    cy.wait('@popularTags')
+
+    cy.get('@popularTags').then(function(returnedTags){
+
+        const {response: {
+            body: {
+                tags
+            }
+        }} = returnedTags
+
+        return cy.wrap(tags)
+        
+    })
+
+})

@@ -7,7 +7,8 @@ const mainPageLocators = {
     postTitle: '.preview-link > h1',
     postDescription: '.preview-link > p',
     postTags: '.preview-link > .tag-list > li',
-    pagination: 'nav > .pagination > li'
+    pagination: 'nav > .pagination > li',
+    popularTags: '.sidebar > .tag-list > a'
 }
 
 class mainPage{
@@ -67,7 +68,19 @@ class mainPage{
         return this
     }
 
-    
+    checkPopularTags(){
+        cy.getPopularTags().then(function(tags){
+            console.log(tags)
+            cy.get(mainPageLocators.popularTags).each(function($el, index, $list){
+                cy.get($el)
+                    .invoke('text')
+                        .should('contains', tags[index])
+            })
+
+        })
+        
+        return this
+    }
 
 }
 
