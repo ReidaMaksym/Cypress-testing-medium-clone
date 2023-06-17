@@ -57,7 +57,49 @@ Cypress.Commands.add('getPopularTags', function(){
         }} = returnedTags
 
         return cy.wrap(tags)
-        
+
     })
+
+})
+
+Cypress.Commands.add('getPostData', function(){
+
+    cy.get('@slug').then(function(slug){
+        cy.intercept('GET', `https://api.realworld.io/api/articles/${slug}`).as('postDetails')
+
+        cy.intercept('GET', `https://api.realworld.io/api/articles/${slug}/comments`).as('postComments')
+    
+        cy.wait('@postDetails')
+    
+        cy.wait('@postComments')
+    
+        cy.get('@postDetails').then(function(postDetails){
+            // console.log(postDetails)
+            const {response: {
+                body: {
+                    article
+                }
+            }} = postDetails
+
+            cy.get('@postComments').then(function(postComments){
+                // console.log(postComments)
+                const {response: {
+                    body: {
+                        comments
+                    }
+                }} = postComments
+
+                return cy.wrap({
+                    article: article,
+                    comments: comments
+                })
+
+            })
+
+
+        })
+    
+    })
+    
 
 })

@@ -82,6 +82,25 @@ class mainPage{
         return this
     }
 
+    openPost(postIndex){
+
+        cy.getGlobalFeed().then(function(feed){
+            cy.get(mainPageLocators.postTitle).each(function($el, index, $list){
+                if(postIndex - 1 === index){
+                    console.log(feed.articles[index].slug)
+                    cy.wrap(feed.articles[index].slug).as('slug')
+                    cy.get($el).click()
+                }
+            })
+    
+            cy.getPostData().then(function(postData){
+                console.log(postData)
+            })
+        })
+
+        return this
+    }
+
 }
 
 module.exports = new mainPage()

@@ -15,7 +15,9 @@ describe('Main page testing', function(){
 
     it.only('', function(){
         mainPage.visitMainPage()
-            .checkPopularTags()
+            // .checkGlobalFeed()
+            // .checkPopularTags()
+            .openPost(1)
     })
 
 })
