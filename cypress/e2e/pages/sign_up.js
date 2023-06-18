@@ -21,6 +21,14 @@ class signUpPage{
 
             console.log(createdUser)
 
+            const {response: {
+                body: {
+                    user
+                }
+            }} = createdUser
+
+            cy.writeFile('cypress/fixtures/token.json', {token: user.token})
+
         })
 
 

@@ -120,6 +120,8 @@ Cypress.Commands.add('generateSignUpData', function(){
     const userName = `Maksym${time}`
     const userPassword = time
 
+    cy.writeFile('cypress/fixtures/userData.json', {email: userEmail, name: userName, password: JSON.stringify(userPassword)})
+
     return cy.wrap({
         email: userEmail,
         name: userName,
