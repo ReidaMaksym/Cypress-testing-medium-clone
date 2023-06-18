@@ -103,3 +103,27 @@ Cypress.Commands.add('getPostData', function(){
     
 
 })
+
+Cypress.Commands.add('fillInInput', function(inputLocator, valueToEnter = ''){
+    cy.get(inputLocator)
+        .click()
+        .clear()
+        .type(valueToEnter)
+})
+
+Cypress.Commands.add('generateSignUpData', function(){
+
+    const today = new Date()
+    const time = today.getTime()
+
+    const userEmail = `test${time}@mail.com`
+    const userName = `Maksym${time}`
+    const userPassword = time
+
+    return cy.wrap({
+        email: userEmail,
+        name: userName,
+        password: userPassword
+    })
+
+})

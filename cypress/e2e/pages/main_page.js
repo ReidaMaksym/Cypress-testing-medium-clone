@@ -8,7 +8,8 @@ const mainPageLocators = {
     postDescription: '.preview-link > p',
     postTags: '.preview-link > .tag-list > li',
     pagination: 'nav > .pagination > li',
-    popularTags: '.sidebar > .tag-list > a'
+    popularTags: '.sidebar > .tag-list > a',
+    signUpPage: "[href='\#\/register']"
 }
 
 class mainPage{
@@ -93,6 +94,14 @@ class mainPage{
                 }
             })
         })
+
+        return this
+    }
+
+    openSingUpPage(){
+
+        cy.get(mainPageLocators.signUpPage)
+            .click()
 
         return this
     }
