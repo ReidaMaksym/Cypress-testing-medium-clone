@@ -29,6 +29,11 @@ class signUpPage{
 
             cy.writeFile('cypress/fixtures/token.json', {token: user.token})
 
+            cy.getAllLocalStorage().then(function(storageData){
+                console.log(storageData)
+                console.log(storageData.jwtToken)
+            })
+
         })
 
 
