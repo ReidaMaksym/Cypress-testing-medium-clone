@@ -129,3 +129,31 @@ Cypress.Commands.add('generateSignUpData', function(){
     })
 
 })
+
+Cypress.Commands.add('checkPostsList', function(locators, body){
+    cy.get(locators.postsList).each(function($el, index, $list){
+
+        cy.get($el.find(locators.postedBy))
+            .invoke('text')
+                .should('contains', body.articles[index].author.username)
+
+        cy.get($el.find(locators.postFavoritesCount))
+            .invoke('text')
+                .should('contains', body.articles[index].favoritesCount)
+
+        cy.get($el.find(locators.postTitle))
+            .invoke('text')
+                .should('contains', body.articles[index].title)
+
+        cy.get($el.find(locators.postDescription))
+            .invoke('text')
+                .should('contains', body.articles[index].description)
+        
+        cy.get($el.find(locators.postTags)).each(function($el2, index2, $list2){
+
+            expect($el2.text().trim())
+                .contains(body.articles[index].tagList[index2])
+        
+        })
+    })
+})
