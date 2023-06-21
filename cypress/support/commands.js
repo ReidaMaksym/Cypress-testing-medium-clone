@@ -130,6 +130,22 @@ Cypress.Commands.add('generateSignUpData', function(){
 
 })
 
+Cypress.Commands.add('generatePostData', function(){
+    const today = new Date()
+    const time = today.getTime()
+
+    const postTitle = `Test post ${time}`
+    const postDescription = `Post description ${time}`
+    const postContent = `Some content ${time} ${time} ${time} ${time}`
+
+    return cy.wrap({
+        title: postTitle,
+        description: postDescription,
+        mainContent: postContent
+    })
+
+})
+
 Cypress.Commands.add('checkPostsList', function(locators, body){
     cy.get(locators.postsList).each(function($el, index, $list){
 

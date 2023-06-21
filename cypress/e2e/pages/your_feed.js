@@ -8,6 +8,7 @@ const yourFeedPageLocators = {
     yourFeed: ".nav.nav-pills > li:nth-of-type(1) > .nav-link",
     subscribeButton: '.banner follow-btn button',
     homeButton: "ul:nth-of-type(2) > li:nth-of-type(1) > .nav-link",
+    newArticleButton: "ul:nth-of-type(2) > li:nth-of-type(2) > .nav-link",
 
     postsList: 'article-preview > .article-preview',
     postedBy: '.info > a',
@@ -79,6 +80,13 @@ class yourFeedPage{
             })
         })
 
+        return this
+    }
+
+    openNewArticlePage(){
+        cy.get(yourFeedPageLocators.newArticleButton)
+            .click()
+        
         return this
     }
 
