@@ -104,7 +104,7 @@ Cypress.Commands.add('getPostData', function(){
 
 })
 
-Cypress.Commands.add('fillInInput', function(inputLocator, valueToEnter = ''){
+Cypress.Commands.add('fillInInput', function(inputLocator, valueToEnter = ' '){
     cy.get(inputLocator)
         .click()
         .clear()
@@ -134,7 +134,7 @@ Cypress.Commands.add('generatePostData', function(){
     const today = new Date()
     const time = today.getTime()
 
-    const postTitle = `Test post ${time}`
+    const postTitle = `Test post title ${time}`
     const postDescription = `Post description ${time}`
     const postContent = `Some content ${time} ${time} ${time} ${time}`
 

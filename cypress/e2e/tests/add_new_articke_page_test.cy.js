@@ -28,5 +28,6 @@ describe("Add new article page testing", function(){
                 description: true,
                 mainContent: true
             })
+            .createNewArticle()
     })
 })
