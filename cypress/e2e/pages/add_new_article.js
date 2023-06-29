@@ -8,7 +8,8 @@ const addNewArticlePageLocators = {
     publishArticleButton: '.btn.btn-lg',
     errorMessage: '.ng-binding.ng-scope',
     commentInput: 'textarea',
-    postCommentButton: '.btn.btn-primary.btn-sm'
+    postCommentButton: '.btn.btn-primary.btn-sm',
+    deleteCommentButtons: 'comment .mod-options > .ion-trash-a'
 }
 
 class addNewArticlePage{
@@ -89,9 +90,11 @@ class addNewArticlePage{
 
     addCommentToArticle(){
 
-        cy.intercept('GET', 'https://api.realworld.io/api/articles/**').as('article')
+        // cy.intercept('GET', 'https://api.realworld.io/api/articles/**').as('article')
 
-        cy.wait('@article')
+        // cy.wait('@article')
+
+        cy.wait(2000)
 
         cy.generateCommentForPost().then(function(newComment){
 
@@ -112,6 +115,53 @@ class addNewArticlePage{
                 console.log(newComment)
             })
         })
+
+        return this
+    }
+
+    deleteComment({deleteAllComments, commentIndex}){
+
+        cy.reload()
+
+        cy.intercept('GET', 'https://api.realworld.io/api/articles/**/comments').as('commentsList')
+
+        cy.intercept('DELETE', 'https://api.realworld.io/api/articles/**/comments/**').as('deleteComment')
+
+        cy.wait('@commentsList')
+
+        cy.get('@commentsList').then(function(commentsList){
+            console.log(commentsList)
+            const {
+                response: {
+                    body: {
+                        comments
+                    }
+                }
+            } = commentsList
+
+            if(comments.length !== 0){
+
+                if(deleteAllComments && commentIndex < 0){
+                    cy.get(addNewArticlePageLocators.deleteCommentButtons).each(function($el, index, $list){
+                        cy.get($el).click()
+                        cy.wait('@deleteComment')
+                    })
+                }
+                else if(!deleteAllComments && commentIndex >= 0){
+                        cy.get(addNewArticlePageLocators.deleteCommentButtons).each(function($el, index, $list){
+                        
+                        if(commentIndex === index){
+                            cy.get($el).click()
+                            cy.wait('@deleteComment')
+                        } 
+                        
+                        
+                    })
+                }
+
+            }
+        })
+
 
         return this
     }

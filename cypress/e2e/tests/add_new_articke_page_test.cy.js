@@ -33,5 +33,16 @@ describe("Add new article page testing", function(){
             .postNewComment()
             .addCommentToArticle()
             .postNewComment()
+            .addCommentToArticle()
+            .postNewComment()
+            // .deleteComment({
+            //     deleteAllComments: true,
+            //     commentIndex: -1
+            // })
+            .deleteComment({
+                deleteAllComments: false,
+                commentIndex: 1
+            })
+
     })
 })
