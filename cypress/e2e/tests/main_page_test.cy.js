@@ -20,4 +20,10 @@ describe('Main page testing', function(){
             .openPost(1)
     })
 
+    // it.only('scrapingData', function(){
+    //     mainPage
+    //         .visitMainPage()
+    //         .scrapingDataFromGlobalFeed()
+    // })
+
 })

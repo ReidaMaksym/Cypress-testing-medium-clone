@@ -146,6 +146,15 @@ Cypress.Commands.add('generatePostData', function(){
 
 })
 
+Cypress.Commands.add('generateCommentForPost', function(){
+    const today = new Date()
+    const time = today.getTime()
+
+    const newComment = `Test comment ${time}`
+
+    return cy.wrap(newComment)
+})
+
 Cypress.Commands.add('checkPostsList', function(locators, body){
     cy.get(locators.postsList).each(function($el, index, $list){
 

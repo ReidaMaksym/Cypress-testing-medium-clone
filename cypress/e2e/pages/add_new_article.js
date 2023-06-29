@@ -6,7 +6,9 @@ const addNewArticlePageLocators = {
     articleMainContentInput: 'fieldset:nth-of-type(3) > .form-control',
     articleTagsInput: 'fieldset:nth-of-type(4) > .form-control',
     publishArticleButton: '.btn.btn-lg',
-    errorMessage: '.ng-binding.ng-scope'
+    errorMessage: '.ng-binding.ng-scope',
+    commentInput: 'textarea',
+    postCommentButton: '.btn.btn-primary.btn-sm'
 }
 
 class addNewArticlePage{
@@ -82,6 +84,35 @@ class addNewArticlePage{
             })
 
         })
+        return this
+    }
+
+    addCommentToArticle(){
+
+        cy.intercept('GET', 'https://api.realworld.io/api/articles/**').as('article')
+
+        cy.wait('@article')
+
+        cy.generateCommentForPost().then(function(newComment){
+
+            cy.fillInInput(addNewArticlePageLocators.commentInput, newComment)
+
+        })
+        return this
+    }
+
+    postNewComment(){
+        cy.get(addNewArticlePageLocators.postCommentButton).click().then(function(){
+
+            cy.intercept('POST', 'https://api.realworld.io/api/articles/**/comments').as('newComment')
+
+            cy.wait('@newComment')
+
+            cy.get('@newComment').then(function(newComment){
+                console.log(newComment)
+            })
+        })
+
         return this
     }
 

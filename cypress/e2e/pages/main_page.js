@@ -116,6 +116,40 @@ class mainPage{
 
     }
 
+    scrapingDataFromGlobalFeed(){
+        cy.getGlobalFeed().then(function(body){
+            console.log(body)
+            // const wrireToFile = []
+
+            cy.readFile('cypress/fixtures/scrapingData.json').then(function(fileData){
+                console.log(fileData)
+
+
+            })
+
+            for(let i = 0; i < body.articles.length; i++){
+            
+                wrireToFile.push({
+                    author: body.articles[i].author,
+                    body: body.articles[i].body,
+                    createdAt: body.articles[i].createdAt
+                })
+
+                // cy.writeFile('cypress/fixtures/scrapingData.json', {
+                //     author: body.articles[i].author,
+                //     body: body.articles[i].body,
+                //     createdAt: body.articles[i].createdAt
+                // },
+                // { flag: 'a+' })
+
+            }
+
+            cy.writeFile('cypress/fixtures/scrapingData.json', wrireToFile, { flag: 'a+' })
+
+        })
+        return this
+    }
+
 }
 
 module.exports = new mainPage()

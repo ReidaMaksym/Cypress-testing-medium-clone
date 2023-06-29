@@ -29,5 +29,9 @@ describe("Add new article page testing", function(){
                 mainContent: true
             })
             .createNewArticle()
+            .addCommentToArticle()
+            .postNewComment()
+            .addCommentToArticle()
+            .postNewComment()
     })
 })
